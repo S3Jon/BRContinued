@@ -103,6 +103,11 @@ class ListModel //List está reservado por PHP
 	public function createList($id_user, $list_name, $list_description, $visibility)
 	{
 		try {
+			//Sanitize data
+			$list_name = htmlspecialchars(strip_tags($list_name));
+			$list_description = htmlspecialchars(strip_tags($list_description));
+			$visibility = htmlspecialchars(strip_tags($visibility));
+			
 			$query = 'INSERT INTO ' . $this->table . ' (id_user, list_name, list_description, visibility) VALUES (:id_user, :list_name, :list_description, :visibility)';
 			$stmt = $this->conn->prepare($query);
 			$stmt->bindParam(':id_user', $id_user);
