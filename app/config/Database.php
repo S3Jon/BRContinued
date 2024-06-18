@@ -228,8 +228,8 @@ class Database{
                 visibility ENUM('public','private') DEFAULT 'private',
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-                FOREIGN KEY (id_user) REFERENCES users(id_user),
-                FOREIGN KEY (isbn) REFERENCES books(isbn)
+                FOREIGN KEY (id_user) REFERENCES users(id_user) ON DELETE CASCADE,
+                FOREIGN KEY (isbn) REFERENCES books(isbn) ON DELETE CASCADE
             )";
             $this->conn->exec($sql);
             // echo "Tabla de reseñas creada exitosamente.";
