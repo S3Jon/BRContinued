@@ -133,6 +133,12 @@ class User
                 return false;
             }
 
+			//Sanitize data
+			$username = htmlspecialchars(strip_tags($username));
+			$email = htmlspecialchars(strip_tags($email));
+			$role = htmlspecialchars(strip_tags($role));
+			$password = htmlspecialchars(strip_tags($password));
+
             //Prepare the query to update user information
             $stmt = $this->conn->prepare("UPDATE users SET username = COALESCE(:username, username), email = COALESCE(:email, email), password = COALESCE(:password, password), role = COALESCE(:role, role) WHERE id_user = :user_id");
             $stmt->bindParam(':username', $username);
