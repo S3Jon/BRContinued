@@ -1,0 +1,60 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+/* Cambiar la imagen de las estrellas cuando se pasa el mouse sobre cualquier estrella */
+.rating-container input[type="radio"]:checked~label:hover img,
+.rating-container input[type="radio"]:checked+label img,
+.rating-container input[type="radio"]:checked~label~input[type="radio"]+label img {
+    content: url("../img/star.svg");
+}
+
+/* Restaurar la imagen de las estrellas no marcadas cuando se retira el mouse */
+.rating-container input[type="radio"]:not(:checked):hover~label img {
+    content: url("../img/star.svg");
+}
+
+/* Show hide elements */
+.show {
+    display: block;
+}
+
+/* Flip card */
+.flip-container {
+    background-color: transparent;
+    width: 180px;
+    height: 260px;
+    /* perspective: 1000px; */
+}
+.flip-card {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 1s;
+    transform-style: preserve-3d;
+}
+.flip-container:hover .flip-card {
+    transform: rotateY(180deg);
+}
+.flip-container:hover .flip-back{
+    border: 1px solid black;
+}
+.flip-front,
+.flip-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.flip-back {
+    transform: rotateY(180deg);
+}
