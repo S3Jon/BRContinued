@@ -107,7 +107,7 @@ class ListModel //List está reservado por PHP
 			$list_name = htmlspecialchars(strip_tags($list_name));
 			$list_description = htmlspecialchars(strip_tags($list_description));
 			$visibility = htmlspecialchars(strip_tags($visibility));
-			
+
 			$query = 'INSERT INTO ' . $this->table . ' (id_user, list_name, list_description, visibility) VALUES (:id_user, :list_name, :list_description, :visibility)';
 			$stmt = $this->conn->prepare($query);
 			$stmt->bindParam(':id_user', $id_user);
@@ -334,6 +334,11 @@ class ListModel //List está reservado por PHP
 					visibility = COALESCE(:visibility, visibility) 
 				WHERE id_list = :id_list';
 			$stmt = $this->conn->prepare($query);
+
+			//Sanitize data
+			$list_name = htmlspecialchars(strip_tags($list_name));
+			$list_description = htmlspecialchars(strip_tags($list_description));
+			$visibility = htmlspecialchars(strip_tags($visibility));
 
 			$stmt->bindParam(':list_name', $list_name);
 			$stmt->bindParam(':list_description', $list_description);
