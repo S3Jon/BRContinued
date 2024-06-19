@@ -52,13 +52,13 @@ foreach ($listasp as $key => $list) {
 			<div class="w-2/3 md:mx-auto">
 				<div class="flex items-center w-full gap-20">
 					<form action="lists" method="GET" class="flex items-center gap-5 w-full pb-1 border-b-2 border-primary">
-						<input type="text" name="search" class="w-full py-2 bg-transparent outline-none" placeholder="Busca lista por nombre o usuario">
+						<input type="text" id="listSearch" name="search" class="w-full py-2 bg-transparent outline-none" placeholder="Busca lista por nombre o usuario">
 						<button type="submit"><img src="img/lupa.svg" alt=""></button>
 					</form>
 				</div>
 			</div>
 		</div>
-        <div class="grid grid-cols-2 justify-items-center gap-10 mt-10">
+        <div id="topLists" class="grid grid-cols-2 justify-items-center gap-10 mt-10">
             <?php foreach ($listasp as $key => $list): ?>
                 <div class="container">
                     <div class="bg-[rgba(36,38,51,0.15)] shadow-md rounded-lg w-full">
@@ -94,3 +94,17 @@ foreach ($listasp as $key => $list) {
 </div>
 
 <?php include_once 'partials/footer.php'; ?>
+
+<script>
+	document.getElementById('listSearch').addEventListener('input', function() {
+		let searchValue = this.value;
+
+		fetch(`lists?search=${searchValue}`)
+			.then(response => response.text())
+			.then(data => {
+				let parser = new DOMParser();
+				let doc = parser.parseFromString(data, 'text/html');
+				document.getElementById('topLists').innerHTML = doc.getElementById('topLists').innerHTML;
+			});
+	});
+</script>
